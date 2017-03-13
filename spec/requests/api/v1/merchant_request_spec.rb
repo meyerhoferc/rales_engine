@@ -69,8 +69,8 @@ describe "Merchant API" do
 
     get "/api/v1/merchants/random.json"
     random_merchant = JSON.parse(response.body)
+    
     expect(response).to be_success
-
     merchants.one? { |merchant| merchant.name == random_merchant["name"] }
   end
 end

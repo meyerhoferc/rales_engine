@@ -8,4 +8,8 @@ class Api::V1::Items::FinderController < ApplicationController
     finder = params.keys.first
     render json: Item.where(params.keys.first => params[finder])
   end
+
+  def random
+    render json: Item.all.sample
+  end
 end
