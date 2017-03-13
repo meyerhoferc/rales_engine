@@ -63,4 +63,15 @@ describe "Merchant API" do
     expect(merchants.first["name"]).to eq("Merchant")
     expect(merchants.last["name"]).to eq("Merchant")
   end
+
+  it "can find a random merchant" do
+    merchants = Fabricate.times(4, :merchant)
+
+    get "/api/v1/merchants/random.json"
+    # byebug
+    random_merchant = JSON.parse(response.body)
+    expect(response).to be_success
+
+    merchants.one? { |merchant| merchant.name == random_merchant["name"] }
+  end
 end

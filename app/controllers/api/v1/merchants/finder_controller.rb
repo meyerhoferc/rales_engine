@@ -8,4 +8,9 @@ class Api::V1::Merchants::FinderController < ApplicationController
     finder = params.keys.first
     render json: Merchant.where(params.keys.first => params[finder])
   end
+
+  def random
+    render json: Merchant.all.sample
+    # render :show
+  end
 end

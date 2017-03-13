@@ -1,3 +1,5 @@
+Fabricate.sequence(:name)
+
 Fabricator(:merchant) do
-  name "MyString"
+  name { sequence(:name, 0) }
 end
