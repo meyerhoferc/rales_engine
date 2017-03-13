@@ -68,7 +68,6 @@ describe "Merchant API" do
     merchants = Fabricate.times(4, :merchant)
 
     get "/api/v1/merchants/random.json"
-    # byebug
     random_merchant = JSON.parse(response.body)
     expect(response).to be_success
 
