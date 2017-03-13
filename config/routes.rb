@@ -7,6 +7,7 @@ Rails.application.routes.draw do
         get 'random', to: "finder#random"
       end
       resources :merchants, only: [:index, :show]
+      resources :items, only: [:index]
     end
   end
 end
