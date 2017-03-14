@@ -2,10 +2,9 @@ require 'rails_helper'
 
 describe "Merchant API" do
   it "sends a list of merchants" do
-    merchants = Fabricate.times(4, :merchant)
+    Fabricate.times(4, :merchant)
 
     get '/api/v1/merchants'
-
     expect(response).to be_success
     merchants = JSON.parse(response.body)
     expect(merchants.count).to eq(4)
@@ -69,7 +68,7 @@ describe "Merchant API" do
 
     get "/api/v1/merchants/random.json"
     random_merchant = JSON.parse(response.body)
-    
+
     expect(response).to be_success
     merchants.one? { |merchant| merchant.name == random_merchant["name"] }
   end
