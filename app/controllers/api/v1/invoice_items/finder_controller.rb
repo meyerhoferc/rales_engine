@@ -2,6 +2,7 @@ class Api::V1::InvoiceItems::FinderController < ApplicationController
   def show
     finder = params.keys[0].downcase
     render json: InvoiceItem.find_by(finder => params[finder])
+
   end
 
   def index
