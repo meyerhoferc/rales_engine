@@ -25,7 +25,7 @@ describe "Customer API" do
     resulting_transactions = JSON.parse(response.body)
     expect(resulting_transactions.count).to eq(3)
     resulting_transactions.all? do |transaction|
-      expect(transaction["id"]).to eq(invoice.id)
+      expect(transaction["invoice_id"]).to eq(invoice.id)
     end
   end
 end

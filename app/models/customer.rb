@@ -3,6 +3,6 @@ class Customer < ApplicationRecord
   validates :first_name, :last_name, presence: true
 
   def transactions
-    invoices.joins(:transactions)
+    Transaction.where(invoice: invoices)
   end
 end
