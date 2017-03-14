@@ -64,6 +64,6 @@ describe "Item API" do
     random_item = JSON.parse(response.body)
 
     expect(response).to be_success
-    items.one? { |item| item.id == random_item["id"]}
+    items.one? { |item| item.id == random_item["id"] }
   end
 end
