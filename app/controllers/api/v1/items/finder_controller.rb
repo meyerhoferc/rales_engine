@@ -1,11 +1,7 @@
 class Api::V1::Items::FinderController < ApplicationController
   def show
     finder = params.keys[0]
-    if finder.downcase == "id"
-      render json: Item.find(params[finder.downcase])
-    else
-      render json: Item.find_by(finder => params[finder] )
-    end
+    render json: Item.find_by(finder => params[finder])
   end
 
   def index

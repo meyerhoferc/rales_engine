@@ -1,5 +1,5 @@
 Fabricator(:transaction) do
-  invoice_id         1
+  invoice { Fabricate(:invoice) }
   credit_card_number 1
   result             "MyString"
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe "Transaction API" do
-  xit "sends a list of transactions" do
+  it "sends a list of transactions" do
     transactions = Fabricate.times(4, :transaction)
 
     get '/api/v1/transactions'
@@ -11,7 +11,7 @@ describe "Transaction API" do
     expect(transactions.count).to eq(4)
   end
 
-  xit "can get an individual transaction from id" do
+  it "can get an individual transaction from id" do
     id = Fabricate(:transaction).id
 
     get "/api/v1/transactions/#{id}"
@@ -21,7 +21,7 @@ describe "Transaction API" do
     expect(transaction["id"]).to eq(id)
   end
 
-  xit "can get a transaction from credit card number" do
+  it "can get a transaction from credit card number" do
     transaction_one = Fabricate(:transaction)
     transaction_two = Fabricate(:transaction, credit_card_number: 0000)
 
@@ -33,7 +33,7 @@ describe "Transaction API" do
     expect(transaction["credit_card_number"]).to_not eq(transaction_two.credit_card_number)
   end
 
-  xit "can get all transactions for result" do
+  it "can get all transactions for result" do
     transaction_one = Fabricate(:transaction)
     transaction_two = Fabricate(:transaction, result: "failed")
     transaction_three = Fabricate(:transaction, result: "failed")
@@ -45,7 +45,7 @@ describe "Transaction API" do
     expect(transaction.count).to eq(2)
   end
 
-  xit "find a random transaction" do
+  it "find a random transaction" do
     transactions = Fabricate.times(4, :transaction)
 
     get "/api/v1/transactions/random.json"
@@ -57,11 +57,11 @@ describe "Transaction API" do
 
   it "find a transaction with invoice id" do
     transaction_one = Fabricate(:transaction)
-    get "/api/v1/transactions/find?invoice_id=#{invoice_id}"
+    get "/api/v1/transactions/find?invoice_id=#{transaction_one.invoice_id}"
 
     transaction = JSON.parse(response.body)
     expect(response).to be_success
-    expect(transaction["invoice_id"]).to eq(invoice_id)
+    expect(transaction["invoice_id"]).to eq(transaction_one.invoice_id)
 
   end
 end
