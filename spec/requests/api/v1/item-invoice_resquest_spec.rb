@@ -25,12 +25,6 @@ describe "Invoice-Items API" do
     invoice_item_one = Fabricate(:invoice_item)
     invoice_item_two = Fabricate(:invoice_item, quantity: 2)
 
-    get "/api/v1/invoice_items/find?unit_price=#{invoice_item_one.unit_price}"
-
-    expect(response).to be_success
-    invoice_item = JSON.parse(response.body)
-    expect(invoice_item["unit_price"]).to eq(invoice_item_one.unit_price)
-
     get "/api/v1/invoice_items/find?quantity=#{invoice_item_two.quantity}"
     expect(response).to be_success
     invoice_item = JSON.parse(response.body)

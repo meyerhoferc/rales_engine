@@ -6,7 +6,7 @@ class Api::V1::Invoices::FinderController < ApplicationController
 
   def index
     finder = params.keys[0]
-    render json: Invoice.where(finder => params[finder] )
+    render json: Invoice.where(finder => params[finder])
   end
 
   def random

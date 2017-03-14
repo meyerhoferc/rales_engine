@@ -13,5 +13,4 @@ class Api::V1::Transactions::FinderController < ApplicationController
   def random
     render json: Transaction.all.sample
   end
-
 end

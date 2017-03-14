@@ -44,6 +44,17 @@ describe "Item API" do
     expect(item["description"]).to_not eq(item_one.description)
   end
 
+  it "can find an item by unit price" do
+    item_one = Fabricate(:item, unit_price: 49121)
+
+    get "/api/v1/items/find?unit_price=#{"491.21"}"
+
+    item = JSON.parse(response.body)
+    expect(response).to be_success
+    expect(item["name"]).to eq(item_one.name)
+    expect(item["unit_price"]).to eq("491.21")
+  end
+
   it "can find multiple items with case insensitive search" do
     item = Fabricate(:item, name: "item name")
 
@@ -53,7 +64,7 @@ describe "Item API" do
     expect(response).to be_success
     expect(response_item.first["name"]).to eq(item.name)
     expect(response_item.first["description"]).to eq(item.description)
-    expect(response_item.first["unit_price"]).to eq(item.unit_price)
+    expect(response_item.first["unit_price"]).to eq("0.15")
     expect(response_item.first["merchant_id"]).to eq(item.merchant_id)
   end
 

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         get 'find_all', to: "finder#index"
         get 'random', to: "finder#random"
       end
+      resources :items, only: [:index, :show]
 
       resources :items, only: [:index, :show]
 
@@ -21,7 +22,6 @@ Rails.application.routes.draw do
         get 'find_all', to: "finder#index"
         get 'random', to: "finder#random"
       end
-
       resources :customers, only: [:index, :show]
 
       namespace :transactions do
@@ -37,7 +37,6 @@ Rails.application.routes.draw do
         get 'find_all', to: "finder#index"
         get 'random', to: "finder#random"
       end
-
       resources :invoices, only: [:index, :show]
 
       namespace :invoice_items do
@@ -45,9 +44,7 @@ Rails.application.routes.draw do
         get 'find_all', to: "finder#index"
         get 'random', to: "finder#random"
       end
-
       resources :invoice_items, only: [:index, :show]
-
     end
   end
 end
