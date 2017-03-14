@@ -36,4 +36,15 @@ describe "Invoice-Items API" do
     invoice_item = JSON.parse(response.body)
     expect(invoice_item["quantity"]).to eq(2)
   end
+
+  it "can find multiple invoice-items" do
+    invoice_items = Fabricate.times(3, :invoice_item, quantity: 3)
+    invoice_item_quantity_1 = Fabricate(:invoice_item, quantity: 1)
+
+    get "/api/v1/invoice_items/find_all?quantity=3"
+    response_invoice_items = JSON.parse(response.body)
+    expect(response).to be_success
+    expect(response_invoice_items.class).to eq(Array)
+    expect(response_invoice_items.count).to eq(3)
+  end
 end
