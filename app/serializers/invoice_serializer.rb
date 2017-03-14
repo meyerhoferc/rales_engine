@@ -1,3 +1,3 @@
 class InvoiceSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :status, :customer_id, :merchant_id
 end
