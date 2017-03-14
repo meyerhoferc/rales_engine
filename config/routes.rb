@@ -17,8 +17,6 @@ Rails.application.routes.draw do
       end
       resources :items, only: [:index, :show]
 
-      resources :items, only: [:index, :show]
-
       namespace :customers do
         get 'find', to: "finder#show"
         get 'find_all', to: "finder#index"
