@@ -1,7 +1,11 @@
 class Api::V1::Invoices::FinderController < ApplicationController
   def show
     finder = params.keys[0]
-    render json: Invoice.find_by(finder => params[finder])
+    if finder.downcase == "id"
+      render json: Invoice.find(params[finder.downcase])
+    else
+      render json: Invoice.find_by(finder => params[finder])
+    end
   end
 
   def index
