@@ -11,7 +11,7 @@ describe "Merchant API" do
     expect(merchants.count).to eq(4)
   end
 
-  it "can get a merchant from id" do
+  it "can get an individual merchant from id" do
     id = Fabricate(:merchant).id
 
     get "/api/v1/merchants/#{id}"
@@ -69,7 +69,7 @@ describe "Merchant API" do
 
     get "/api/v1/merchants/random.json"
     random_merchant = JSON.parse(response.body)
-    
+
     expect(response).to be_success
     merchants.one? { |merchant| merchant.name == random_merchant["name"] }
   end
