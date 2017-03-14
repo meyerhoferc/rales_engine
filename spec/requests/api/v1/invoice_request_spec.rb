@@ -37,4 +37,14 @@ describe "Invoice APi" do
     expect(response).to be_success
     expect(invoice["id"]).to eq(invoice_two.id)
   end
+
+  it "can find multiple invoices" do
+    invoices = Fabricate.times(4, :invoice)
+    get "/api/v1/invoices/find_all?id=#{invoices[0].id}"
+
+    response_invoices = JSON.parse(response.body)
+    expect(response).to be_success
+    expect(response_invoices.class).to eq(Array)
+    expect(response_invoices.first["id"]).to eq(invoices[0].id)
+  end
 end
