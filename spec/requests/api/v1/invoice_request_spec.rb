@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "Invoice APi" do
   it "sends a list of invoices" do
-    invoices = Fabricate.times(4, :invoice)
+    Fabricate.times(4, :invoice)
 
     get "/api/v1/invoices"
 

@@ -28,6 +28,8 @@ Rails.application.routes.draw do
         get 'random', to: "finder#random"
       end
       resources :invoices, only: [:index, :show]
+
+      resources :invoice_items, only: [:index]
     end
   end
 end
