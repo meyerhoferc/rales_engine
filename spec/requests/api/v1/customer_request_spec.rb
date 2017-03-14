@@ -50,6 +50,18 @@ describe "Customer API" do
     expect(customer["id"]).to_not eq(customer_two.id)
   end
 
+  it "can find many customers with a case insensitive search" do
+    customer_one = Fabricate(:customer, last_name: "Duck")
+    customer_two = Fabricate(:customer, last_name: "Duck")
+
+    get "/api/v1/customers/find_all?last_name=ducK"
+
+    customers = JSON.parse(response.body)
+    expect(response).to be_success
+    customers.each { |customer| expect(customer["last_name"]).to eq("Duck")}
+    expect(customers.count).to eq(2)
+  end
+
   it "can find random customer" do
     customer = Fabricate.times(4, :customer)
     get "/api/v1/customers/random.json"
