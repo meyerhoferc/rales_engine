@@ -4,7 +4,7 @@ Merchant.delete_all
 Item.delete_all
 Invoice.delete_all
 InvoiceItem.delete_all
-# Transaction.delete_all
+Transaction.delete_all
 def import_customers
   CSV.foreach('db/data/customers.csv', headers: true, header_converters: :symbol) do |row|
     Customer.create!(first_name: row[:first_name],
@@ -63,7 +63,6 @@ def import_transactions
   CSV.foreach('db/data/transactions.csv', headers: true, header_converters: :symbol) do |row|
     Transaction.create!(invoice: Invoice.find(row[:invoice_id]),
                         credit_card_number: row[:credit_card_number],
-                        credit_card_expiration_date: row[:credit_card_expiration_date],
                         result: row[:result],
                         created_at: row[:created_at],
                         updated_at: row[:updated_at])
@@ -76,4 +75,4 @@ import_merchants
 import_items
 import_invoices
 import_invoice_items
-# import_transactions
+import_transactions

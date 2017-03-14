@@ -53,7 +53,7 @@ describe "Item API" do
     expect(response).to be_success
     expect(response_item.first["name"]).to eq(item.name)
     expect(response_item.first["description"]).to eq(item.description)
-    expect(response_item.first["unit_price"]).to eq(item.unit_price)
+    expect(response_item.first["unit_price"]).to eq(".15")
     expect(response_item.first["merchant_id"]).to eq(item.merchant_id)
   end
 
