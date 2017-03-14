@@ -44,10 +44,10 @@ describe "Item API" do
     expect(item["description"]).to_not eq(item_one.description)
   end
 
-  it "can find multiple items" do
-    item = Fabricate(:item)
+  it "can find multiple items with case insensitive search" do
+    item = Fabricate(:item, name: "item name")
 
-    get "/api/v1/items/find_all?name=#{item.name}"
+    get "/api/v1/items/find_all?name=#{item.name.upcase}"
 
     response_item = JSON.parse(response.body)
     expect(response).to be_success

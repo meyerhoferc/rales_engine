@@ -7,7 +7,7 @@ class Api::V1::Customers::FinderController < ApplicationController
 
   def index
     finder = params.keys[0]
-    render json: Customer.where(finder => params[finder])
+    render json: Customer.where("lower(#{finder}) = ?", params[finder].downcase)
   end
 
   def random
