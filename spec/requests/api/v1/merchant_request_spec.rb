@@ -10,7 +10,7 @@ describe "Merchant API" do
     expect(merchants.count).to eq(4)
   end
 
-  it "can get a merchant from id" do
+  it "can get an individual merchant from id" do
     id = Fabricate(:merchant).id
 
     get "/api/v1/merchants/#{id}"
