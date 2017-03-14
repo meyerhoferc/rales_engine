@@ -1,6 +1,6 @@
 class Api::V1::Merchants::FinderController < ApplicationController
   def show
-    finder = params.keys.first
+    finder = params.keys[0]
     if finder.downcase == "id"
       render json: Merchant.find(params[finder.downcase])
     else
@@ -9,7 +9,7 @@ class Api::V1::Merchants::FinderController < ApplicationController
   end
 
   def index
-    finder = params.keys.first
+    finder = params.keys[0]
     render json: Merchant.where("lower(#{finder}) = ?", params[finder].downcase)
   end
 
