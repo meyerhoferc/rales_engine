@@ -22,6 +22,9 @@ Rails.application.routes.draw do
       end
       resources :customers, only: [:index, :show]
 
+      namespace :invoices do
+        get 'find', to: "finder#show"
+      end
       resources :invoices, only: [:index, :show]
     end
   end
