@@ -8,8 +8,4 @@ class Api::V1::Invoices::FinderController < ApplicationController
     finder = params.keys[0]
     render json: Invoice.where(finder => params[finder])
   end
-
-  def random
-    render json: Invoice.all.sample
-  end
 end

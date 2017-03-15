@@ -4,7 +4,10 @@ Rails.application.routes.draw do
       namespace :merchants do
         get 'find', to: "finder#show"
         get 'find_all', to: "finder#index"
-        get 'random', to: "finder#random"
+        get 'random', to: "random#show"
+        get 'most_revenue', to: "revenue#index"
+        get ':id/favorite_customer', to: "customers#show"
+        get ':id/customers_with_pending_invoices', to: "customers#index"
         get ':merchant_id/items', to: "items#index"
         get ':merchant_id/invoices', to: "invoices#index"
       end
@@ -13,14 +16,14 @@ Rails.application.routes.draw do
       namespace :items do
         get 'find', to: "finder#show"
         get 'find_all', to: "finder#index"
-        get 'random', to: "finder#random"
+        get 'random', to: "random#show"
       end
       resources :items, only: [:index, :show]
 
       namespace :customers do
         get 'find', to: "finder#show"
         get 'find_all', to: "finder#index"
-        get 'random', to: "finder#random"
+        get 'random', to: "random#show"
         get ":id/invoices", to: "invoices#index"
         get ":id/transactions", to: "transactions#index"
       end
@@ -29,7 +32,7 @@ Rails.application.routes.draw do
       namespace :transactions do
         get 'find', to: "finder#show"
         get 'find_all', to: "finder#index"
-        get 'random', to: "finder#random"
+        get 'random', to: "random#show"
         get ":id/invoice", to: "invoices#show"
       end
 
@@ -38,14 +41,14 @@ Rails.application.routes.draw do
       namespace :invoices do
         get 'find', to: "finder#show"
         get 'find_all', to: "finder#index"
-        get 'random', to: "finder#random"
+        get 'random', to: "random#show"
       end
       resources :invoices, only: [:index, :show]
 
       namespace :invoice_items do
         get 'find', to: "finder#show"
         get 'find_all', to: "finder#index"
-        get 'random', to: "finder#random"
+        get 'random', to: "random#show"
       end
       resources :invoice_items, only: [:index, :show]
     end

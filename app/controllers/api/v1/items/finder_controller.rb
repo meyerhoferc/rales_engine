@@ -11,10 +11,6 @@ class Api::V1::Items::FinderController < ApplicationController
     render json: Item.where(finder => params[finder])
   end
 
-  def random
-    render json: Item.all.sample
-  end
-
   def format_unit_price
     if params[:unit_price]
       unit_price = params[:unit_price].split(".").join

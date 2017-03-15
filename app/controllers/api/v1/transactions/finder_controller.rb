@@ -9,8 +9,4 @@ class Api::V1::Transactions::FinderController < ApplicationController
     finder = params.keys[0]
     render json: Transaction.where(finder => params[finder])
   end
-
-  def random
-    render json: Transaction.all.sample
-  end
 end
