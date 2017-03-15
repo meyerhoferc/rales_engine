@@ -1,16 +1,15 @@
 class Api::V1::Transactions::FinderController < ApplicationController
-
   def show
-    finder = params.keys[0]
-    render json: Transaction.find_by(finder => params[finder])
+    render json: Transaction.find_by(transaction_params)
   end
 
   def index
-    finder = params.keys[0]
-    render json: Transaction.where(finder => params[finder])
+    render json: Transaction.where(transaction_params)
   end
 
-  def random
-    render json: Transaction.all.sample
+  private
+
+  def transaction_params
+    params.permit(:id, :created_at, :updated_at, :credit_card_number, :result, :invoice_id)
   end
 end
