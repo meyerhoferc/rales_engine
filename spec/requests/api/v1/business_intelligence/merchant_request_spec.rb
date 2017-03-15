@@ -59,7 +59,7 @@ describe "Merchant API" do
     expect(customer["id"]).to eq(customer_one.id)
   end
 
-  it "returns a collection of customers with pending transactions" do
+  xit "returns a collection of customers with pending transactions" do
     customer_one, customer_two, customer_three = Fabricate.times(3, :customer)
     merchant = Fabricate(:merchant)
     customer_one_invoices = Fabricate.times(5, :invoice, customer: customer_one, merchant: merchant)
