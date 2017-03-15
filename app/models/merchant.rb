@@ -7,12 +7,12 @@ class Merchant < ApplicationRecord
 
   def self.highest_revenue(quantity)
     joins(invoices: :transactions)
-    .merge(Transaction.success)
-    .joins(invoices: :invoice_items)
-    .group(:id)
-    .select('merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
-    .order('total_revenue desc')
-    .limit(quantity)
+      .merge(Transaction.success)
+      .joins(invoices: :invoice_items)
+      .group(:id)
+      .select('merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
+      .order('total_revenue desc')
+      .limit(quantity)
   end
 
   def favorite_customer
@@ -26,7 +26,7 @@ class Merchant < ApplicationRecord
   def customers_with_pending_transactions
     customers.select('customers.*')
              .joins(invoices: :transactions)
-             .merge(Transaction.where(result: 'failed'))
+             .merge(Transaction.failed)
              .group("customers.id")
   end
 end
