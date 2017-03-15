@@ -2,7 +2,7 @@ class Api::V1::Items::FinderController < ApplicationController
   before_action :format_unit_price, only: [:index, :show]
 
   def show
-    render json: Item.find_by(item_params)
+    render json: Item.where(item_params).first
   end
 
   def index
