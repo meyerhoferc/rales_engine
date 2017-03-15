@@ -25,8 +25,8 @@ class Merchant < ApplicationRecord
 
   def customers_with_pending_transactions
     customers.select('customers.*')
-             .joins(:invoices)
-             .merge(Invoice.pending)
+             .joins(invoices: :transactions)
+             .merge(Transaction.where(result: 'failed'))
              .group("customers.id")
   end
 end
