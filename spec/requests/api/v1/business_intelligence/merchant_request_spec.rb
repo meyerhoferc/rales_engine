@@ -73,8 +73,13 @@ describe "Merchant API" do
 
     customer_two_invoices.each do |invoice|
       Fabricate(:invoice_item, invoice: invoice)
-      Fabricate(:transaction, invoice: invoice, result: "failed")
+      Fabricate(:transaction, invoice: invoice, result: "success")
     end
+    one_failed_transaction_invoice = Fabricate(:invoice, customer: customer_two, merchant: merchant)
+    Fabricate(:invoice_item, invoice: one_failed_transaction_invoice)
+    Fabricate(:transaction, invoice: one_failed_transaction_invoice, result: "failed")
+    Fabricate(:invoice_item, invoice: one_failed_transaction_invoice)
+    Fabricate(:transaction, invoice: one_failed_transaction_invoice, result: "success")
 
     customer_three_invoices.each do |invoice|
       Fabricate(:invoice_item, invoice: invoice)
@@ -86,7 +91,7 @@ describe "Merchant API" do
     customers = JSON.parse(response.body)
     expect(customers.count).to eq(2)
     ids = customers.map { |customer| customer["id"]}
-
+    
     ids.each do |id|
       expect(id).to_not eq(customer_three.id)
     end

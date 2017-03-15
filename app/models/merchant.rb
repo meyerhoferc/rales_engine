@@ -6,9 +6,8 @@ class Merchant < ApplicationRecord
   validates :name, presence: true
 
   def self.highest_revenue(quantity)
-    joins(invoices: :transactions)
+    joins(invoices: [:transactions, :invoice_items])
       .merge(Transaction.success)
-      .joins(invoices: :invoice_items)
       .group(:id)
       .select('merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
       .order('total_revenue desc')
