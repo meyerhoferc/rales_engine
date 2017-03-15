@@ -2,7 +2,9 @@ require 'rails_helper'
 describe "Invoice API" do
   it "returns a collection of associated transactions" do
     invoice = Fabricate(:invoice)
+    invoice2 = Fabricate(:invoice)
     Fabricate.times(2, :transaction, invoice: invoice)
+    Fabricate.times(2, :transaction, invoice: invoice2)
     get "/api/v1/invoices/#{invoice.id}/transactions"
 
     expect(response).to be_success
@@ -15,9 +17,11 @@ describe "Invoice API" do
 
   it "returns a collection of associated invoice items" do
     invoice = Fabricate(:invoice)
+    invoice2 = Fabricate(:invoice)
     item_one, item_two = Fabricate.times(2, :item)
     Fabricate(:invoice_item, item: item_one, invoice: invoice)
     Fabricate(:invoice_item, item: item_two, invoice: invoice)
+    Fabricate(:invoice_item, item: item_two, invoice: invoice2)
     get "/api/v1/invoices/#{invoice.id}/invoice_items"
 
     expect(response).to be_success
@@ -30,9 +34,11 @@ describe "Invoice API" do
 
   it "returns a collection of associated items" do
     invoice = Fabricate(:invoice)
+    invoice2 = Fabricate(:invoice)
     item_one, item_two = Fabricate.times(2, :item)
     Fabricate(:invoice_item, item: item_one, invoice: invoice)
     Fabricate(:invoice_item, item: item_two, invoice: invoice)
+    Fabricate(:invoice_item, item: item_two, invoice: invoice2)
 
 
     get "/api/v1/invoices/#{invoice.id}/items"
@@ -47,6 +53,7 @@ describe "Invoice API" do
   it "returns an associated customer" do
     invoice = Fabricate(:invoice)
     customer1= Fabricate(:customer)
+    customer2= Fabricate(:customer, first_name: "Becky")
 
     get "/api/v1/invoices/#{invoice.id}/customer"
     expect(response).to be_success
@@ -59,6 +66,7 @@ describe "Invoice API" do
 
   it "returns an associated merchant" do
     merchant1 = Fabricate(:merchant)
+    merchant2 = Fabricate(:merchant)
     invoice = Fabricate(:invoice, merchant: merchant1)
 
     get "/api/v1/invoices/#{invoice.id}/merchant"

@@ -1,10 +1,12 @@
 require 'rails_helper'
 describe "Items API" do
-  it "returns a collection of invoice_itemsfor an item" do
+  it "returns a collection of invoice_items for an item" do
     invoice = Fabricate(:invoice)
+    invoice2 = Fabricate(:invoice)
     item_one, item_two = Fabricate.times(2, :item)
     Fabricate(:invoice_item, item: item_one, invoice: invoice)
     Fabricate(:invoice_item, item: item_two, invoice: invoice)
+    Fabricate(:invoice_item, item: item_two, invoice: invoice2)
     get "/api/v1/items/#{item_one.id}/invoice_items"
 
     expect(response).to be_success
@@ -17,7 +19,9 @@ describe "Items API" do
 
   it "returns a collection of merchants for an item" do
     merchant = Fabricate(:merchant)
+    merchant2 = Fabricate(:merchant)
     item_one = Fabricate(:item, merchant: merchant)
+    item_two = Fabricate(:item, merchant: merchant2)
 
     get "/api/v1/items/#{item_one.id}/merchant"
 

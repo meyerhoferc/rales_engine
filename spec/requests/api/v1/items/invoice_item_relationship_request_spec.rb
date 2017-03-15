@@ -4,8 +4,11 @@ describe "Invoice_item API" do
 
   it "returns an associated item" do
     item_one = Fabricate(:item)
+    item_two = Fabricate(:item)
     invoice = Fabricate(:invoice)
+    invoice_two = Fabricate(:invoice)
     invoice_item = Fabricate(:invoice_item, item: item_one, invoice: invoice)
+    invoice_item_two = Fabricate(:invoice_item, item: item_two, invoice: invoice_two)
 
     get "/api/v1/invoice_items/#{invoice_item.id}/item"
 
@@ -18,6 +21,7 @@ describe "Invoice_item API" do
   it "returns an associated invoice" do
     item_one = Fabricate(:item)
     invoice1 = Fabricate(:invoice)
+    invoice2 = Fabricate(:invoice)
     invoice_item = Fabricate(:invoice_item, item: item_one, invoice: invoice1)
 
     get "/api/v1/invoice_items/#{invoice_item.id}/invoice"
