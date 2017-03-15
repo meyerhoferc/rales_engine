@@ -1,12 +1,15 @@
 class Api::V1::Customers::FinderController < ApplicationController
-
   def show
-    finder = params.keys[0]
-    render json: Customer.find_by(finder => params[finder])
+    render json: Customer.find_by(customer_params)
   end
 
   def index
-    finder = params.keys[0]
-    render json: Customer.where(finder => params[finder])
+    render json: Customer.where(customer_params)
+  end
+
+  private
+
+  def customer_params
+    params.permit(:first_name, :last_name, :created_at, :updated_at, :id)
   end
 end
