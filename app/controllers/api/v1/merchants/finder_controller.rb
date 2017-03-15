@@ -1,15 +1,15 @@
 class Api::V1::Merchants::FinderController < ApplicationController
   def show
-    finder = params.keys[0]
-    render json: Merchant.find_by(finder => params[finder])
+    render json: Merchant.find_by(merchant_params)
   end
 
   def index
-    finder = params.keys[0]
-    render json: Merchant.where(finder => params[finder])
+    render json: Merchant.where(merchant_params)
   end
 
-  def random
-    render json: Merchant.all.sample
+  private
+
+  def merchant_params
+    params.permit(:id, :created_at, :updated_at, :name)
   end
 end
