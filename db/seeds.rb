@@ -10,7 +10,8 @@ def import_customers
     Customer.create!(first_name: row[:first_name],
                      last_name: row[:last_name],
                      created_at: row[:created_at],
-                     updated_at: row[:updated_at])
+                     updated_at: row[:updated_at],
+                     id: row[:id])
   end
   print "Customers loaded\n"
 end
@@ -19,7 +20,8 @@ def import_merchants
   CSV.foreach('db/data/merchants.csv', headers: true, header_converters: :symbol) do |row|
     Merchant.create!(name: row[:name],
                      created_at: row[:created_at],
-                     updated_at: row[:updated_at])
+                     updated_at: row[:updated_at],
+                     id: row[:id])
   end
   print "Merchants loaded\n"
 end
@@ -31,7 +33,8 @@ def import_items
                  unit_price: row[:unit_price],
                  merchant: Merchant.find(row[:merchant_id]),
                  created_at: row[:created_at],
-                 updated_at: row[:updated_at])
+                 updated_at: row[:updated_at],
+                 id: row[:id])
   end
   print "Items loaded\n"
 end
@@ -42,7 +45,8 @@ def import_invoices
                     merchant: Merchant.find(row[:merchant_id]),
                     status: row[:status],
                     created_at: row[:created_at],
-                    updated_at: row[:updated_at])
+                    updated_at: row[:updated_at],
+                    id: row[:id])
   end
   print "Invoices loaded\n"
 end
@@ -54,7 +58,8 @@ def import_invoice_items
                         quantity: row[:quantity],
                         unit_price: row[:unit_price],
                         created_at: row[:created_at],
-                        updated_at: row[:updated_at])
+                        updated_at: row[:updated_at],
+                        id: row[:id])
   end
   print "Invoice-Items loaded\n"
 end
@@ -65,7 +70,8 @@ def import_transactions
                         credit_card_number: row[:credit_card_number],
                         result: row[:result],
                         created_at: row[:created_at],
-                        updated_at: row[:updated_at])
+                        updated_at: row[:updated_at],
+                        id: row[:id])
   end
   print "Transactions loaded\n"
 end
