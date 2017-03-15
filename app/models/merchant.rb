@@ -1,6 +1,7 @@
 class Merchant < ApplicationRecord
   has_many :items
   has_many :invoices
+  has_many :customers, through: :invoices
   validates :name, presence: true
 
   def self.highest_revenue(quantity)
@@ -14,7 +15,11 @@ class Merchant < ApplicationRecord
   end
 
   def favorite_customer
-    invoices.joins(:transactions).merge(Transaction.success)
+    customers.select('customers.*, count(invoices.merchant_id) AS frequency')
+             .joins(invoices: :transactions)
+             .merge(Transaction.success)
+             .group("customers.id")
+             .order('frequency desc').first
   end
 
   def self.total_revenue
