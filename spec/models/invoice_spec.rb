@@ -17,7 +17,7 @@ RSpec.describe Invoice, type: :model do
     pending_invoices = Fabricate.times(2, :invoice)
     pending_invoices.each do |invoice|
       Fabricate(:invoice_item, invoice: invoice)
-      Fabricate(:transaction, invoice: invoice, result: "pending")
+      Fabricate(:transaction, invoice: invoice, result: "failed")
     end
 
     expect(Invoice.pending.count).to eq(2)

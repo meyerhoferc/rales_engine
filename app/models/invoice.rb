@@ -7,6 +7,6 @@ class Invoice < ApplicationRecord
   validates :status, presence: true
 
   def self.pending
-    where(transactions: {result: "failed"})
+    joins(:transactions).where(transactions: {result: "failed"})
   end
 end
