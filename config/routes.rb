@@ -18,6 +18,7 @@ Rails.application.routes.draw do
         get 'find_all', to: "finder#index"
         get 'random', to: "random#show"
       end
+      get '/items/most_revenue', to: "items#most_revenue"
       resources :items, only: [:index, :show]
 
       namespace :customers do
