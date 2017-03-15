@@ -14,6 +14,10 @@ class Merchant < ApplicationRecord
     # "SELECT * FROM merchants INNER JOIN invoices ON merchants.invoice_id = invoices.id INNER JOIN transactions ON invoices.transaction_id = transactions.id"
   end
 
+  def self.total_revenue
+    byebug
+  end
+
   def favorite_customer
     customers.select('customers.*, count(invoices.merchant_id) AS frequency')
              .joins(invoices: :transactions)
@@ -22,7 +26,7 @@ class Merchant < ApplicationRecord
              .order('frequency desc').first
   end
 
-  def self.total_revenue
-    byebug
+  def customers_with_pending_transactions
+    customers.select('customers.*').joins(invoices: :transactions).merge(Invoice.pending).group("customers.id")
   end
 end

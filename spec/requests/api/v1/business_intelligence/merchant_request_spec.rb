@@ -43,4 +43,37 @@ describe "Merchant API" do
     customer = JSON.parse(response.body)
     expect(customer["id"]).to eq(customer_one.id)
   end
+
+  it "returns a collection of customers with pending transactions" do
+    customer_one, customer_two, customer_three = Fabricate.times(3, :customer)
+    merchant = Fabricate(:merchant)
+    customer_one_invoices = Fabricate.times(5, :invoice, customer: customer_one, merchant: merchant)
+    customer_two_invoices = Fabricate.times(4, :invoice, customer: customer_two, merchant: merchant)
+    customer_three_invoices = Fabricate.times(2, :invoice, customer: customer_three, merchant: merchant)
+
+    customer_one_invoices.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice)
+      Fabricate(:transaction, invoice: invoice, result: "failed")
+    end
+
+    customer_two_invoices.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice)
+      Fabricate(:transaction, invoice: invoice, result: "failed")
+    end
+
+    customer_three_invoices.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice)
+      Fabricate(:transaction, invoice: invoice)
+    end
+
+    get "/api/v1/merchants/#{merchant.id}/customers_with_pending_invoices"
+    expect(response).to be_success
+    customers = JSON.parse(response.body)
+    expect(customers.count).to eq(2)
+    ids = customers.map { |customer| customer["id"]}
+
+    ids.each do |id|
+      expect(id).to_not eq(customer_three.id)
+    end
+  end
 end

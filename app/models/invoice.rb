@@ -5,4 +5,8 @@ class Invoice < ApplicationRecord
   has_many :items, through: :invoice_items
   has_many :transactions
   validates :status, presence: true
+
+  def self.pending
+    where(transactions: {result: "failed"})
+  end
 end
