@@ -5,6 +5,8 @@ Rails.application.routes.draw do
         get 'find', to: "finder#show"
         get 'find_all', to: "finder#index"
         get 'random', to: "finder#random"
+        get 'most_revenue', to: "revenue#index"
+        get ':id/favorite_customer', to: "customer#show"
         get ':merchant_id/items', to: "items#index"
         get ':merchant_id/invoices', to: "invoices#index"
       end
