@@ -10,10 +10,6 @@ class Api::V1::InvoiceItems::FinderController < ApplicationController
     render json: InvoiceItem.where(finder => params[finder])
   end
 
-  def random
-    render json: InvoiceItem.all.sample
-  end
-
   def format_unit_price
     if params[:unit_price]
       unit_price = params[:unit_price].split(".").join
