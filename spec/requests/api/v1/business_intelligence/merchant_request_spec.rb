@@ -75,6 +75,7 @@ describe "Merchant API" do
       Fabricate(:invoice_item, invoice: invoice)
       Fabricate(:transaction, invoice: invoice, result: "success")
     end
+
     one_failed_transaction_invoice = Fabricate(:invoice, customer: customer_two, merchant: merchant)
     Fabricate(:invoice_item, invoice: one_failed_transaction_invoice)
     Fabricate(:transaction, invoice: one_failed_transaction_invoice, result: "failed")
@@ -89,11 +90,12 @@ describe "Merchant API" do
     get "/api/v1/merchants/#{merchant.id}/customers_with_pending_invoices"
     expect(response).to be_success
     customers = JSON.parse(response.body)
-    expect(customers.count).to eq(2)
+    expect(customers.count).to eq(1)
     ids = customers.map { |customer| customer["id"]}
 
     ids.each do |id|
       expect(id).to_not eq(customer_three.id)
+      expect(id).to_not eq(customer_two.id)
     end
   end
 
