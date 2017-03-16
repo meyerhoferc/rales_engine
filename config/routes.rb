@@ -12,6 +12,7 @@ Rails.application.routes.draw do
         get ':merchant_id/items', to: "items#index"
         get ':merchant_id/invoices', to: "invoices#index"
       end
+      get '/merchants/:merchant_id/revenue', to: "merchants#total_revenue"
       resources :merchants, only: [:index, :show]
 
       namespace :items do
@@ -22,6 +23,7 @@ Rails.application.routes.draw do
         get '/:item_id/merchant', to: "merchant#show"
 
       end
+
       get '/items/most_revenue', to: "items#most_revenue"
       resources :items, only: [:index, :show]
 

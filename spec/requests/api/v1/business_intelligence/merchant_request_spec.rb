@@ -128,4 +128,19 @@ describe "Merchant API" do
     total_revenue = JSON.parse(response.body)
     expect(total_revenue["total_revenue"]).to eq("18.0")
   end
+
+  it "returns each merchants revenue" do
+    merchant_one = Fabricate(:merchant)
+    invoice = Fabricate(:invoice, merchant: merchant_one)
+    Fabricate(:invoice_item, invoice: invoice)
+    Fabricate(:transaction, invoice: invoice)
+
+    get "/api/v1/merchants/#{merchant_one.id}/revenue"
+
+    expect(response).to be_success
+    total_revenue = JSON.parse(response.body)
+    expect(total_revenue["total_revenue"]).to eq("0.02")
+
+
+  end
 end
