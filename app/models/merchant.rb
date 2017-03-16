@@ -54,7 +54,7 @@ class Merchant < ApplicationRecord
   def self.random
     all.sample
   end
-  
+
   def total_revenue
     invoices.joins(:invoice_items, :transactions)
     .merge(Transaction.success)
@@ -69,7 +69,6 @@ class Merchant < ApplicationRecord
   end
 
   def self.items_sold(number_of_merchants)
-    # byebug
     joins(invoices: [:transactions, :invoice_items])
       .merge(Transaction.success)
       .group(:id)
