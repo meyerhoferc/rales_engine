@@ -1,24 +1,27 @@
-# README
+### RalesEngine
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+RalesEngine uses Rails and ActiveRecord to serve up JSON from SalesEngine data.
 
-Things you may want to cover:
+To run RalesEngine:
 
-* Ruby version
+git clone https://github.com/meyerhoferc/rales_engine.git
+`rake db:setup`
 
-* System dependencies
+### Endpoints Available
+#### Record Endpoints
+Record endpoints provide JSON for records stored in database tables as direct queries against a single resource.
+For each of the following resources: [merchants, customers, items, invoices, invoice_items, transactions]
+get `/api/v1/resource(s)` returns JSON for all records for the resource
+get `/api/v1/resource/:id` returns JSON for a resource
+get `/api/v1/resource/find?parameter` returns JSON for a resource meeting parameter
+get `/api/v1/resource/find_all?parameter` returns JSON for all resources meeting parameter
 
-* Configuration
+#### Relationship Endpoints
+Relationship endpoints provide JSON for queries accessing data between resources.
 
-* Database creation
+#### Business Intelligence Endpoints
+Business intelligence endpoints provide JSON for analytics on multiple resources.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+To run the test suite:
+`rake db:test:prepare`
+`rspec`
