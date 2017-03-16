@@ -50,4 +50,8 @@ class Merchant < ApplicationRecord
       .merge(Transaction.success)
       .sum('invoice_items.quantity * invoice_items.unit_price')
   end
+
+  def self.random
+    all.sample
+  end
 end
