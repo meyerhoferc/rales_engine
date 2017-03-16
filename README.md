@@ -85,4 +85,5 @@ Business intelligence endpoints provide JSON for analytics on multiple resources
 
 To run the test suite:
 `rake db:test:prepare`
+
 `rspec`
