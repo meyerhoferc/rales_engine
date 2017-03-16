@@ -14,11 +14,8 @@ RSpec.describe Transaction, type: :model do
     expect(Transaction.success).to eq(successful_transactions)
   end
 
-  it ".failed returns transactions where result is failed" do
-    successful_transactions = Fabricate.times(3, :transaction, result: "success")
-    unsuccessful_transactions = Fabricate.times(2, :transaction, result: "failed")
-
-    expect(Transaction.failed.count).to eq(2)
-    expect(Transaction.failed).to eq(unsuccessful_transactions)
+  it ".random returns a transaction" do
+    Fabricate.times(3, :transaction)
+    expect(Transaction.random.class).to eq(Transaction)
   end
 end

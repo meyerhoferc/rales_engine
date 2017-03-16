@@ -13,11 +13,4 @@ class Api::V1::InvoiceItems::FinderController < ApplicationController
   def invoice_item_params
     params.permit(:item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at, :id)
   end
-
-  def format_unit_price
-    if params[:unit_price]
-      unit_price = params[:unit_price].split(".").join
-      params[:unit_price] = unit_price
-    end
-  end
 end

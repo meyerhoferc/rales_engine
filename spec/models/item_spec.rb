@@ -8,4 +8,9 @@ RSpec.describe Item, type: :model do
   it { should belong_to(:merchant) }
   it { should have_many(:invoice_items) }
   it { should have_many(:invoices) }
+
+  it ".random returns an item" do
+    Fabricate.times(3, :item)
+    expect(Item.random.class).to eq(Item)
+  end
 end
