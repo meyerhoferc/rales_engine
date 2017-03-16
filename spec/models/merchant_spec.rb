@@ -131,4 +131,29 @@ RSpec.describe Merchant, type: :model do
     total_revenue = merchant.total_revenue
     expect(total_revenue).to eq(1.5)
   end
+
+  it ".revenue_per_date(date) returns total revenue for a merchant" do
+    date_one = "2012-03-16 11:55:05"
+    date_two = "2012-03-07 10:54:55"
+
+    merchant_one = Fabricate(:merchant)
+
+    item_one = Fabricate(:item, unit_price: 100)
+    item_two = Fabricate(:item, unit_price: 300)
+    invoices_date_one = Fabricate.times(2, :invoice, merchant: merchant_one, created_at: date_one, updated_at: date_one)
+    invoices_date_two = Fabricate.times(2, :invoice, merchant: merchant_one, created_at: date_two, updated_at: date_two)
+
+    invoices_date_one.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice, quantity: 3, unit_price: 100, item: item_one)
+      Fabricate(:transaction, invoice: invoice)
+    end
+
+    invoices_date_two.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice, quantity: 3, unit_price: 300, item: item_two)
+      Fabricate(:transaction, invoice: invoice)
+    end
+
+    total_revenue = merchant_one.revenue_per_date(date_one)
+    expect(total_revenue).to eq(600)
+  end
 end
