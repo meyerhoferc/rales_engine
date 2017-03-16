@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Customer API" do
+describe "Customer Record API" do
   it "sends a list of customers" do
 
     customers = Fabricate.times(4, :customer)

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Invoice APi" do
+describe "Invoice Record APi" do
   it "sends a list of invoices" do
     Fabricate.times(4, :invoice)
 

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Invoice_item API" do
+describe "Invoice_item Relationships API" do
 
   it "returns an associated item" do
     item_one = Fabricate(:item)

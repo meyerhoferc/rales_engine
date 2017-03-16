@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Items API" do
+describe "Items Business Intelligence API" do
   it "returns the items with the most revenue" do
     item_one, item_two, item_three = Fabricate.times(3, :item)
     invoice_one, invoice_two, invoice_three = Fabricate.times(3, :invoice)

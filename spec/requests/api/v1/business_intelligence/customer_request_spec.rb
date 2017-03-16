@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Customer API" do
+describe "Customer Business Intelligence API" do
   it "returns a merchant where customer has had the most successful transactions" do
     merchant_one, merchant_two, merchant_three = Fabricate.times(3, :merchant)
     customer = Fabricate(:customer)
