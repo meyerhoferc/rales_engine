@@ -4,7 +4,7 @@ RalesEngine uses Rails and ActiveRecord to serve up JSON from SalesEngine data.
 
 To run RalesEngine:
 
-`git clone PUT URL HERE`
+git clone https://github.com/meyerhoferc/rales_engine.git
 `rake db:setup`
 
 ### Endpoints Available
