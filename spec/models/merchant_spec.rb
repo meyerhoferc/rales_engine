@@ -6,4 +6,9 @@ RSpec.describe Merchant, type: :model do
   it { should have_many(:invoices) }
   it { should have_many(:customers) }
   it { should have_many(:transactions) }
+
+  it ".random returns a merchant" do
+    Fabricate.times(3, :merchant)
+    expect(Merchant.random.class).to eq(Merchant)
+  end
 end

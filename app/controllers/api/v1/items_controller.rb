@@ -6,8 +6,4 @@ class Api::V1::ItemsController < ApplicationController
   def show
     render json: Item.find(params[:id])
   end
-
-  def most_revenue
-    render json: Item.most_revenue(params[:quantity])
-  end
 end

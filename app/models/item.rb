@@ -11,4 +11,8 @@ class Item < ApplicationRecord
       .order('sum(invoice_items.quantity * invoice_items.unit_price) desc')
       .limit(quantity)
   end
+
+  def self.random
+    all.sample
+  end
 end

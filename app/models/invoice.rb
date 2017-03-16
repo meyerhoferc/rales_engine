@@ -6,7 +6,7 @@ class Invoice < ApplicationRecord
   has_many :transactions
   validates :status, presence: true
 
-  def self.pending
-    joins(:transactions).where(transactions: {result: "failed"})
+  def self.random
+    all.sample
   end
 end
