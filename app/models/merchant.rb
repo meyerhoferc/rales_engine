@@ -54,4 +54,17 @@ class Merchant < ApplicationRecord
   def self.random
     all.sample
   end
+  
+  def total_revenue
+    invoices.joins(:invoice_items, :transactions)
+    .merge(Transaction.success)
+    .sum('invoice_items.quantity * invoice_items.unit_price')
+  end
+
+  def revenue_per_date(date)
+    invoices.joins(:invoice_items, :transactions)
+    .merge(Transaction.success)
+    .where('invoices.created_at = ?', date)
+    .sum('invoice_items.quantity * invoice_items.unit_price')
+  end
 end
