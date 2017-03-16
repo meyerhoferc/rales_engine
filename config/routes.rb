@@ -7,6 +7,7 @@ Rails.application.routes.draw do
         get 'random', to: "random#show"
         get 'most_revenue', to: "revenue#index"
         get 'revenue', to: "revenue#date"
+        get 'most_items', to: "items#number_of_items_sold"
       end
 
       resources :merchants, only: [:index, :show] do
@@ -54,7 +55,6 @@ Rails.application.routes.draw do
         get 'find', to: "finder#show"
         get 'find_all', to: "finder#index"
         get 'random', to: "random#show"
-
       end
 
       resources :invoices, only: [:index, :show] do

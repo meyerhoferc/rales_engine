@@ -48,6 +48,10 @@ class Merchant < ApplicationRecord
     all.sample
   end
 
+  def self.random
+    all.sample
+  end
+  
   def total_revenue
     invoices.joins(:invoice_items, :transactions)
     .merge(Transaction.success)
@@ -59,5 +63,15 @@ class Merchant < ApplicationRecord
     .merge(Transaction.success)
     .where('invoices.created_at = ?', date)
     .sum('invoice_items.quantity * invoice_items.unit_price')
+  end
+
+  def self.items_sold(number_of_merchants)
+    # byebug
+    joins(invoices: [:transactions, :invoice_items])
+      .merge(Transaction.success)
+      .group(:id)
+      .select('merchants.*, SUM(invoice_items.quantity) AS total_sold')
+      .order('total_sold desc')
+      .limit(number_of_merchants)
   end
 end

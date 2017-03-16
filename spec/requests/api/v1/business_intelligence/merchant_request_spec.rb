@@ -201,4 +201,29 @@ describe "Merchant API" do
 
     expect(total_revenue["revenue"]).to eq("6.0")
   end
+
+  it "returns the merchants by most items sold" do
+    merchant_one = Fabricate(:merchant)
+    merchant_two = Fabricate(:merchant)
+
+    item_one = Fabricate(:item)
+    item_two = Fabricate(:item)
+    invoice_one = Fabricate.times(2, :invoice, merchant: merchant_one)
+    invoice_two = Fabricate.times(2, :invoice, merchant: merchant_two)
+    invoice_one.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice, quantity: 3, item: item_one)
+      Fabricate(:transaction, invoice: invoice)
+    end
+    invoice_two.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice, quantity: 100, item: item_two)
+      Fabricate(:transaction, invoice: invoice)
+    end
+
+    get "/api/v1/merchants/most_items?quantity=2"
+    expect(response).to be_success
+
+    merchants = JSON.parse(response.body)
+    expect(merchants.first["id"]).to eq(merchant_two.id)
+    expect(merchants.last["id"]).to eq(merchant_one.id)
+  end
 end
