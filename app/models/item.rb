@@ -15,4 +15,12 @@ class Item < ApplicationRecord
   def self.random
     all.sample
   end
+
+  def self.total_sold(quantity)
+    joins(invoices: :transactions)
+      .merge(Transaction.success)
+      .group(:id)
+      .order('sum(invoice_items.quantity) desc')
+      .limit(quantity)
+  end
 end
