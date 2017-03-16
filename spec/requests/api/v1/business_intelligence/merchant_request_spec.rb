@@ -129,18 +129,47 @@ describe "Merchant API" do
     expect(total_revenue["total_revenue"]).to eq("18.0")
   end
 
-  it "returns each merchants revenue" do
-    merchant_one = Fabricate(:merchant)
-    invoice = Fabricate(:invoice, merchant: merchant_one)
+  xit "returns each merchants total revenue" do
+    merchant = Fabricate(:merchant)
+    merchant_two = Fabricate(:merchant)
+    invoice = Fabricate(:invoice, merchant: merchant)
+    Fabricate(:invoice, merchant: merchant_two)
     Fabricate(:invoice_item, invoice: invoice)
     Fabricate(:transaction, invoice: invoice)
 
-    get "/api/v1/merchants/#{merchant_one.id}/revenue"
+    get "/api/v1/merchants/#{merchant.id}/revenue"
 
     expect(response).to be_success
     total_revenue = JSON.parse(response.body)
-    expect(total_revenue["total_revenue"]).to eq("0.02")
-
-
+    expect(total_revenue["revenue"]).to eq("0.02")
   end
+
+  it "returns each merchants revenue on a given day" do
+    date_one = "2012-03-16 11:55:05"
+    date_two = "2012-03-07 10:54:55"
+
+    merchant_one = Fabricate(:merchant)
+
+    item_one = Fabricate(:item, unit_price: 100)
+    item_two = Fabricate(:item, unit_price: 300)
+    invoices_date_one = Fabricate.times(2, :invoice, merchant: merchant_one, created_at: date_one, updated_at: date_one)
+    invoices_date_two = Fabricate.times(2, :invoice, merchant: merchant_one, created_at: date_two, updated_at: date_two)
+
+    invoices_date_one.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice, quantity: 3, unit_price: 100, item: item_one)
+      Fabricate(:transaction, invoice: invoice)
+    end
+
+    invoices_date_two.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice, quantity: 3, unit_price: 300, item: item_two)
+      Fabricate(:transaction, invoice: invoice)
+    end
+
+    get "/api/v1/merchants/#{merchant_one.id}/revenue?date=#{date_one}"
+
+    expect(response).to be_success
+    total_revenue = JSON.parse(response.body)
+
+    expect(total_revenue["revenue"]).to eq("6.0")
+end
 end
