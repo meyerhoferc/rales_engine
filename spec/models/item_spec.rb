@@ -28,4 +28,24 @@ RSpec.describe Item, type: :model do
     expect(items.first.id).to eq(item_one.id)
     expect(items.last.id).to eq(item_two.id)
   end
+
+  it "best_day returns best day per item" do
+    date_one = "2012-03-16T11:55:05.000Z"
+    date_two = "2012-03-07 10:54:55"
+    merchant_one = Fabricate(:merchant)
+    item_one = Fabricate(:item, unit_price: 100)
+    invoices_date_one = Fabricate.times(2, :invoice, merchant: merchant_one, created_at: date_one, updated_at: date_one)
+    invoices_date_two = Fabricate.times(2, :invoice, merchant: merchant_one, created_at: date_two, updated_at: date_two)
+    invoices_date_one.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice, quantity: 3, item: item_one)
+      Fabricate(:transaction, invoice: invoice)
+    end
+    invoices_date_two.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice, quantity: 1, item: item_one)
+      Fabricate(:transaction, invoice: invoice)
+    end
+
+    date = item_one.highest_sale_date
+    expect(date.first.created_at).to eq(date_one)
+  end
 end

@@ -66,8 +66,5 @@ describe "Items API" do
 
      date = JSON.parse(response.body)
      expect(date["best_day"]).to eq(date_one)
-    #  assert_equal "2012-03-16 11:55:05", date
-    #  assert_equal "2012-03-07 10:54:55", best_day_two["best_day"]
-
  end
 end
