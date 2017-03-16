@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Customer API" do
+describe "Customer Business Intelligence API" do
   it "returns a merchant where customer has had the most successful transactions" do
     merchant_one, merchant_two, merchant_three = Fabricate.times(3, :merchant)
     customer = Fabricate(:customer)
@@ -29,6 +29,5 @@ describe "Customer API" do
     merchant = JSON.parse(response.body)
     expect(merchant["id"]).to eq(merchant_one.id)
     expect(merchant["id"]).to_not eq(merchant_two.id)
-
   end
 end

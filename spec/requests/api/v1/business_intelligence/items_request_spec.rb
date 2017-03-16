@@ -2,7 +2,6 @@ require 'rails_helper'
 
 describe "Items API" do
   it " returns the top item ranked by total number sold" do
-
     item_one, item_two, item_three = Fabricate.times(3, :item)
     merchant_one, merchant_two, merchant_three = Fabricate.times(3, :merchant)
     merchant_one_invoices = Fabricate.times(5, :invoice, merchant: merchant_one)

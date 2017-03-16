@@ -1,5 +1,6 @@
 require 'rails_helper'
-describe "Invoice API" do
+
+describe "Invoice Relationship API" do
   it "returns a collection of associated transactions" do
     invoice = Fabricate(:invoice)
     invoice2 = Fabricate(:invoice)

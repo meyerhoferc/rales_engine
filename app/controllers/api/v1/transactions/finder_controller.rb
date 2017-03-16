@@ -10,6 +10,11 @@ class Api::V1::Transactions::FinderController < ApplicationController
   private
 
   def transaction_params
-    params.permit(:id, :created_at, :updated_at, :credit_card_number, :result, :invoice_id)
+    params.permit(:id,
+                  :created_at,
+                  :updated_at,
+                  :credit_card_number,
+                  :result,
+                  :invoice_id)
   end
 end

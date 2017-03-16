@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Item API" do
+describe "Item Record API" do
   it "sends a list of items" do
     items = Fabricate.times(4, :item)
 

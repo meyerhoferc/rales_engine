@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Merchant API" do
+describe "Merchant Record API" do
   it "sends a list of merchants" do
     Fabricate.times(4, :merchant)
 

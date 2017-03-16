@@ -27,4 +27,30 @@ RSpec.describe Customer, type: :model do
     expect(transactions[1]).to eq(expected_transactions[1])
     expect(transactions[2]).to eq(expected_transactions[2])
   end
+
+  it ".favorite_merchant returns a customer's favorite merchant" do
+    merchant_one, merchant_two, merchant_three = Fabricate.times(3, :merchant)
+    customer = Fabricate(:customer)
+    merchant_one_invoices = Fabricate.times(5, :invoice, customer: customer, merchant: merchant_one)
+    merchant_two_invoices = Fabricate.times(4, :invoice, customer: customer, merchant: merchant_two)
+    merchant_three_invoices = Fabricate.times(2, :invoice, customer: customer, merchant: merchant_one)
+
+    merchant_one_invoices.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice)
+      Fabricate(:transaction, invoice: invoice)
+    end
+
+    merchant_two_invoices.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice)
+      Fabricate(:transaction, invoice: invoice)
+    end
+
+    merchant_three_invoices.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice)
+      Fabricate(:transaction, invoice: invoice)
+    end
+
+    favorite_merchant = customer.favorite_merchant
+    expect(favorite_merchant.id).to eq(merchant_one.id)
+  end
 end

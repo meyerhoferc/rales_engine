@@ -48,4 +48,32 @@ RSpec.describe Item, type: :model do
     date = item_one.highest_sale_date
     expect(date.first.created_at).to eq(date_one)
   end
+  
+  it ".total_sold(quantity) returns ordered items by number of times sold" do
+    item_one, item_two, item_three = Fabricate.times(3, :item)
+    merchant_one, merchant_two, merchant_three = Fabricate.times(3, :merchant)
+    merchant_one_invoices = Fabricate.times(5, :invoice, merchant: merchant_one)
+    merchant_two_invoices = Fabricate.times(4, :invoice, merchant: merchant_two)
+    merchant_three_invoices = Fabricate.times(2, :invoice, merchant: merchant_one)
+
+    merchant_one_invoices.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice, item: item_one, quantity: 3)
+      Fabricate(:transaction, invoice: invoice)
+    end
+
+    merchant_two_invoices.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice, item: item_two, quantity: 2)
+      Fabricate(:transaction, invoice: invoice)
+    end
+
+    merchant_three_invoices.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice, item: item_three, quantity: 1)
+      Fabricate(:transaction, invoice: invoice)
+    end
+
+    ranked_items = Item.total_sold(2)
+
+    expect(ranked_items.first.id).to eq(item_one.id)
+    expect(ranked_items.last.id).to eq(item_two.id)
+  end
 end
