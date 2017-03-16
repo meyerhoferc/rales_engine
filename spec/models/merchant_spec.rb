@@ -156,4 +156,26 @@ RSpec.describe Merchant, type: :model do
     total_revenue = merchant_one.revenue_per_date(date_one)
     expect(total_revenue).to eq(600)
   end
+
+  it ".items_sold(quantity) returns merchants ranked by items sold" do
+    merchant_one = Fabricate(:merchant)
+    merchant_two = Fabricate(:merchant)
+
+    item_one = Fabricate(:item)
+    item_two = Fabricate(:item)
+    invoice_one = Fabricate.times(2, :invoice, merchant: merchant_one)
+    invoice_two = Fabricate.times(2, :invoice, merchant: merchant_two)
+    invoice_one.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice, quantity: 3, item: item_one)
+      Fabricate(:transaction, invoice: invoice)
+    end
+    invoice_two.each do |invoice|
+      Fabricate(:invoice_item, invoice: invoice, quantity: 100, item: item_two)
+      Fabricate(:transaction, invoice: invoice)
+    end
+
+    merchants = Merchant.items_sold(2)
+    expect(merchants.first.id).to eq(merchant_two.id)
+    expect(merchants.last.id).to eq(merchant_one.id)
+  end
 end
