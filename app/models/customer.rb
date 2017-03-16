@@ -14,10 +14,10 @@ class Customer < ApplicationRecord
 
   def favorite_merchant
     merchants
-    .select('merchants.*, count(invoices.customer_id) AS frequency')
-    .joins(invoices: :transactions)
-    .merge(Transaction.success)
-    .group("merchants.id")
-    .order('frequency desc').first
+      .select('merchants.*, count(invoices.customer_id) AS frequency')
+      .joins(invoices: :transactions)
+      .merge(Transaction.success)
+      .group("merchants.id")
+      .order('frequency desc').first
   end
 end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Merchant API" do
+describe "Merchant Business Intelligence API" do
   it "returns top merchants ranked by total_revenue" do
     merchant_one, merchant_two, merchant_three = Fabricate.times(3, :merchant)
     customer = Fabricate(:customer)

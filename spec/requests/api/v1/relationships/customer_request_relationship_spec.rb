@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Customer API" do
+describe "Customer Relationships API" do
   it "returns a collection of invoices for a customer" do
     customer = Fabricate(:customer)
     invoices = Fabricate.times(3, :invoice, customer: customer)

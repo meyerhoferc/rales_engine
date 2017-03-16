@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Merchant API" do
+describe "Merchant Relationship API" do
   it "returns a collection of items for a merchant" do
     merchant = Fabricate(:merchant)
     Fabricate.times(2, :item, merchant: merchant)

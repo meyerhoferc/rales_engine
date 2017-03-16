@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Invoice-Items API" do
+describe "Invoice-Items Record API" do
   it "sends a list of invoice-items" do
      Fabricate.times(4, :invoice_item)
 

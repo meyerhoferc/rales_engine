@@ -1,5 +1,6 @@
 require 'rails_helper'
-describe "Items API" do
+
+describe "Items Relationship API" do
   it "returns a collection of invoice_items for an item" do
     invoice = Fabricate(:invoice)
     invoice2 = Fabricate(:invoice)

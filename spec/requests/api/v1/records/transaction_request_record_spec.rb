@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "Transaction API" do
+describe "Transaction Record API" do
   it "sends a list of transactions" do
     transactions = Fabricate.times(4, :transaction)
 
