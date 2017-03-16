@@ -23,4 +23,14 @@ class Item < ApplicationRecord
       .order('sum(invoice_items.quantity) desc')
       .limit(quantity)
   end
+
+  def highest_sale_date
+    invoices
+      .joins(:transactions)
+      .merge(Transaction.success)
+      .select('invoices.created_at')
+      .group(:id)
+      .order('sum(invoice_items.quantity) desc')
+      .limit(1)
+  end
 end
