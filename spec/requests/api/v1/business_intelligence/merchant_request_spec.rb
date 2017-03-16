@@ -59,7 +59,7 @@ describe "Merchant API" do
     expect(customer["id"]).to eq(customer_one.id)
   end
 
-  xit "returns a collection of customers with pending transactions" do
+  it "returns a collection of customers with pending transactions" do
     customer_one, customer_two, customer_three = Fabricate.times(3, :customer)
     merchant = Fabricate(:merchant)
     customer_one_invoices = Fabricate.times(5, :invoice, customer: customer_one, merchant: merchant)
@@ -91,12 +91,7 @@ describe "Merchant API" do
     expect(response).to be_success
     customers = JSON.parse(response.body)
     expect(customers.count).to eq(1)
-    ids = customers.map { |customer| customer["id"]}
-
-    ids.each do |id|
-      expect(id).to_not eq(customer_three.id)
-      expect(id).to_not eq(customer_two.id)
-    end
+    expect(customers.first["id"]).to eq(customer_one.id)
   end
 
   it "returns total revenue for date for all merchants" do

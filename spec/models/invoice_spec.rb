@@ -18,6 +18,7 @@ RSpec.describe Invoice, type: :model do
     pending_invoices.each do |invoice|
       Fabricate(:invoice_item, invoice: invoice)
       Fabricate(:transaction, invoice: invoice, result: "failed")
+      Fabricate(:transaction, invoice: invoice, result: "success")
     end
 
     expect(Invoice.pending.count).to eq(2)

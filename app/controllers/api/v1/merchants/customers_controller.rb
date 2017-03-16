@@ -4,6 +4,7 @@ class Api::V1::Merchants::CustomersController < ApplicationController
   end
 
   def index
-    render json: Merchant.find(params[:id]).customers_with_pending_transactions
+    render json: Merchant.customers_with_pending_transactions(params[:id]),
+           each_serializer: ::CustomerSerializer
   end
 end
