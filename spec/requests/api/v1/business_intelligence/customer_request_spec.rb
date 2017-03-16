@@ -29,6 +29,7 @@ describe "Customer API" do
     expect(response).to be_success
     merchant = JSON.parse(response.body)
     expect(merchant["id"]).to eq(merchant_one.id)
+    expect(merchant["id"]).to_not eq(merchant_two.id)
 
   end
 end
