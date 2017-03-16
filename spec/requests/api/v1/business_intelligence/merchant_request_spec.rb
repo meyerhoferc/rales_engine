@@ -158,7 +158,7 @@ describe "Merchant API" do
     expect(total_revenue["total_revenue"]).to eq("18.0")
   end
 
-  xit "returns each merchants total revenue" do
+  it "returns each merchants total revenue" do
     merchant = Fabricate(:merchant)
     merchant_two = Fabricate(:merchant)
     invoice = Fabricate(:invoice, merchant: merchant)
