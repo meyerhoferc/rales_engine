@@ -23,7 +23,6 @@ describe "Customer API" do
       Fabricate(:transaction, invoice: invoice)
     end
 
-
     get  "/api/v1/customers/#{customer.id}/favorite_merchant"
 
     expect(response).to be_success
