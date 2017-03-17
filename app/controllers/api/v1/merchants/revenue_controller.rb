@@ -9,16 +9,7 @@ class Api::V1::Merchants::RevenueController < ApplicationController
   end
 
   def total_revenue_per_merchant
-    if params[:date]
-      total_revenue_per_date
-    else
-      total = Merchant.find(params[:merchant_id]).total_revenue
-      render json: {"revenue": format_total(total)}
-    end
-  end
-
-  def total_revenue_per_date
-    total = Merchant.find(params[:merchant_id]).revenue_per_date(params[:date])
+    total = Merchant.find(params[:merchant_id]).total_revenue(params[:date])
     render json: {"revenue": format_total(total)}
   end
 
